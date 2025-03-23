@@ -2,6 +2,8 @@
 
 A simple landing page with a contact form that sends emails to mikecerqua@gmail.com using Mailgun and Netlify Functions.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-site-id/deploy-status)](https://app.netlify.com/sites/your-site-name/deploys)
+
 ## Features
 
 - Single HTML file solution
@@ -10,41 +12,36 @@ A simple landing page with a contact form that sends emails to mikecerqua@gmail.
 - Netlify Functions for backend processing
 - Responsive design
 
-## Deployment Instructions for Netlify
+## Deployment Options
 
-### Step 1: Deploy to Netlify
+### Option 1: Direct Deploy to Netlify (Recommended)
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/MCERQUA/contact-form-mailgun)
 
-Simply click the button above to deploy this site to Netlify. This will:
-- Create a copy of this repository in your GitHub account
-- Connect Netlify to that repository
-- Deploy the site
+1. Click the button above to deploy directly to Netlify
+2. Follow the setup instructions
+3. Configure environment variables (see below)
 
-### Step 2: Set Environment Variables
+### Option 2: Manual Deployment
 
-After deployment, you need to set up environment variables in Netlify:
+See the [DEPLOYMENT.md](DEPLOYMENT.md) file for detailed manual deployment instructions.
 
-1. Go to your site dashboard in Netlify
-2. Navigate to **Site settings** > **Environment variables**
-3. Add the following variables:
-   - `MAILGUN_API_KEY`: Your Mailgun API key
-   - `MAILGUN_DOMAIN`: Your verified Mailgun domain
-   - `MAILGUN_WEBHOOK_SIGNING_KEY`: e4605f239a90d49d8f6004d7fcf7ea1e
-   - `MAILGUN_VERIFICATION_KEY`: pubkey-1ccd31d3b1d49282291ba5cefbe50a0e
-   - `RECAPTCHA_SECRET_KEY`: Your reCAPTCHA secret key
+### Option 3: GitHub Actions CI/CD
 
-### Step 3: Update reCAPTCHA Site Key
+This repository includes a GitHub Actions workflow that automatically deploys to Netlify when changes are pushed to the main branch. To use this method:
 
-1. Get your reCAPTCHA site key and secret key from [Google reCAPTCHA Admin](https://www.google.com/recaptcha/admin)
-2. In your repository copy, update `public/index.html` to replace `YOUR_RECAPTCHA_SITE_KEY` with your actual site key
-3. Commit and push this change, and Netlify will automatically redeploy
+1. Set up the required GitHub Secrets (`NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID`)
+2. Push changes to the main branch to trigger deployment
 
-### Step 4: Verify Setup
+## Required Environment Variables
 
-1. After deployment, visit your Netlify site
-2. Test the contact form by submitting a message
-3. Verify that you receive the email at mikecerqua@gmail.com
+Set these in your Netlify site settings:
+
+- `MAILGUN_API_KEY`: Your Mailgun API key
+- `MAILGUN_DOMAIN`: Your Mailgun domain
+- `MAILGUN_WEBHOOK_SIGNING_KEY`: e4605f239a90d49d8f6004d7fcf7ea1e (provided)
+- `MAILGUN_VERIFICATION_KEY`: pubkey-1ccd31d3b1d49282291ba5cefbe50a0e (provided)
+- `RECAPTCHA_SECRET_KEY`: Your reCAPTCHA secret key
 
 ## Local Development
 
@@ -59,27 +56,16 @@ After deployment, you need to set up environment variables in Netlify:
    npm install
    ```
 
-3. Create a `.env` file in the root directory with your environment variables
-   ```
-   MAILGUN_API_KEY=your-mailgun-api-key
-   MAILGUN_DOMAIN=your-mailgun-domain.com
-   MAILGUN_WEBHOOK_SIGNING_KEY=e4605f239a90d49d8f6004d7fcf7ea1e
-   MAILGUN_VERIFICATION_KEY=pubkey-1ccd31d3b1d49282291ba5cefbe50a0e
-   RECAPTCHA_SECRET_KEY=your-recaptcha-secret-key
-   ```
+3. Create a `.env` file with your environment variables
 
 4. Start the development server
    ```
    npm run dev
    ```
 
-## Troubleshooting
+## Important Note
 
-If your form doesn't work:
-- Check Netlify Functions logs in the "Functions" tab of your Netlify dashboard
-- Verify all environment variables are set correctly
-- Make sure your Mailgun domain is properly verified and active
-- Confirm your reCAPTCHA configuration is correct
+After deploying, you need to update the reCAPTCHA site key in `public/index.html`. Replace `YOUR_RECAPTCHA_SITE_KEY` with your actual reCAPTCHA site key.
 
 ## Customization
 
